@@ -1,0 +1,7 @@
+Word Grid:  (Char)
+F E E C O W 
+F F O W L F 
+M F C F F E 
+U D A E D M 
+L O T F D U 
+E G A P E E 

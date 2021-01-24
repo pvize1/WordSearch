@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<results version="2">
+    <cppcheck version="2.2" />
+    <errors>
+        <error id="redundantAssignment" severity="style" msg="Variable &apos;grid[col+2][row]&apos; is reassigned a value before the old one has been used." verbose="Variable &apos;grid[col+2][row]&apos; is reassigned a value before the old one has been used." cwe="563" hash="2439451608209163488">
+            <location file="main.cpp" line="185" column="34" info="grid[col+2][row] is overwritten" />
+            <location file="main.cpp" line="184" column="34" info="grid[col+2][row] is assigned" />
+            <symbol>grid[col+2][row]</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;word_count&apos; can be reduced." verbose="The scope of the variable &apos;word_count&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" hash="14596021983294235494">
+            <location file="main.cpp" line="27" column="9" />
+            <symbol>word_count</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;word_length&apos; can be reduced." verbose="The scope of the variable &apos;word_length&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" hash="13692106734263827017">
+            <location file="main.cpp" line="28" column="9" />
+            <symbol>word_length</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;found_word&apos; can be reduced." verbose="The scope of the variable &apos;found_word&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" hash="7262758586330033544">
+            <location file="main.cpp" line="32" column="10" />
+            <symbol>found_word</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;longest_word&apos; can be reduced." verbose="The scope of the variable &apos;longest_word&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" hash="1920895889612156077">
+            <location file="main.cpp" line="33" column="9" />
+            <symbol>longest_word</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;row&apos; can be reduced." verbose="The scope of the variable &apos;row&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" hash="12638187203916807240">
+            <location file="main.cpp" line="36" column="9" />
+            <symbol>row</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;col&apos; can be reduced." verbose="The scope of the variable &apos;col&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" hash="9218127099349642097">
+            <location file="main.cpp" line="37" column="9" />
+            <symbol>col</symbol>
+        </error>
+        <error id="useStlAlgorithm" severity="style" msg="Consider using std::any_of algorithm instead of a raw loop." verbose="Consider using std::any_of algorithm instead of a raw loop." cwe="398" hash="15212363304562477298">
+            <location file="main.cpp" line="77" column="17" />
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &apos;found_word&apos; is assigned a value that is never used." verbose="Variable &apos;found_word&apos; is assigned a value that is never used." cwe="563" hash="4735088565772492533">
+            <location file="main.cpp" line="32" column="21" />
+            <symbol>found_word</symbol>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &apos;word_grid[ud(mtgen)][ud(mtgen)]&apos; is assigned a value that is never used." verbose="Variable &apos;word_grid[ud(mtgen)][ud(mtgen)]&apos; is assigned a value that is never used." cwe="563" hash="2021115482133155130">
+            <location file="main.cpp" line="125" column="41" />
+            <symbol>word_grid[ud(mtgen)][ud(mtgen)]</symbol>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &apos;fill_blanks&apos; is never used." verbose="The function &apos;fill_blanks&apos; is never used." cwe="561">
+            <location file="main.cpp" line="160" column="0" />
+            <symbol>fill_blanks</symbol>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &apos;place_word&apos; is never used." verbose="The function &apos;place_word&apos; is never used." cwe="561">
+            <location file="main.cpp" line="176" column="0" />
+            <symbol>place_word</symbol>
+        </error>
+        <error id="unusedFunction" severity="style" msg="The function &apos;print_grid&apos; is never used." verbose="The function &apos;print_grid&apos; is never used." cwe="561">
+            <location file="main.cpp" line="139" column="0" />
+            <symbol>print_grid</symbol>
+        </error>
+        <error id="missingIncludeSystem" severity="information" msg="Cppcheck cannot find all the include files (use --check-config for details)" verbose="Cppcheck cannot find all the include files. Cppcheck can check the code without the include files found. But the results will probably be more accurate if all the include files are found. Please check your project&apos;s include directories and add all of them as include directories for Cppcheck. To see what files Cppcheck cannot find use --check-config." />
+    </errors>
+</results>
