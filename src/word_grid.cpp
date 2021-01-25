@@ -17,32 +17,84 @@ Word_Grid::~Word_Grid()
     //dtor
 }
 
-bool Word_Grid::read_and_clean_word_list(std::string filename)
+int Word_Grid::read_and_clean_word_list(std::string file_name)
 {
-    bool read_ok {false};
+    //Process the raw list of words in text file (file_name), clean (remove whitespace) and upper
+    std::ifstream file(file_name);
 
-    //Process the raw list of words, clean (remove whitespace) and upper
-    file_name = filename;
+    //Return values: 0=Success, 1=File not found, 2=No valid clean words found
+    int result {0};
 
-    switch ( words.create_clean_list(filename) )
+    if (file.is_open())
     {
-        case 0:
+        std::string line;
+        std::vector<std::string> raw_list {};
+
+
+        while (std::getline(file, line))
         {
-            read_ok = true;
-            break;
+            raw_list.push_back(line);
         }
-        case 1:
+        file.close();
+
+        bool found_word {false};
+
+        //Process the raw list of words, clean (remove whitespace) and upper
+        for (std::string raw_word : raw_list)
         {
-            std::cerr << std::endl << "File not found (" << file_name << ")" << std::endl;
-            break;
+            std::string curr_word {};
+            found_word = false;
+
+            for (char letter: raw_word)
+                if ( isalpha(letter) )
+                    curr_word += toupper(letter);
+
+            // Check to see if word already in clean list
+            for (auto word: clean_list)
+            {
+                if ( word.get_word() == curr_word )
+                {
+                    found_word = true;
+                    std::cerr << curr_word << " - Duplicate word: " << std::endl;
+                    break;
+                }
+            }
+            if ( ! found_word )
+                if ( curr_word.size() > 1 )
+                {
+                    word_data new_word(curr_word);
+                    clean_list.push_back(new_word);
+                }
         }
-        case 2:
-        {
-            std::cerr << std::endl << "No valid words in file" << std::endl;
-            break;
-        }
+        word_count = static_cast<int>(clean_list.size());
+
+        if ( word_count == 0 )
+            result = 2;
+        else
+            result = 0;
     }
-    return read_ok;
+    else
+    {
+        std::cerr << std::endl << "File not found (" << file_name << ")" << std::endl;
+        result = 1;
+    }
+
+
+
+//    switch ( words.create_clean_list(filename) )
+//    {
+//        case 0:
+//        {
+//            read_ok = true;
+//            break;
+//        }
+//        case 2:
+//        {
+//            std::cerr << std::endl << "No valid words in file" << std::endl;
+//            break;
+//        }
+//    }
+    return result;
 }
 
 bool Word_Grid::create_grid()

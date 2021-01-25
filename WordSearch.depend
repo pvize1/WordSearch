@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1610823752 source:c:\users\peter\c++\wordsearch\main.cpp
+1611608497 source:c:\users\peter\c++\wordsearch\main.cpp
 	<string>
 	"word_grid.h"
 
@@ -11,7 +11,7 @@
 1611066202 source:c:\users\peter\c++\wordsearch\src\word_grid.cpp
 	"word_grid.h"
 
-1610823547 c:\users\peter\c++\wordsearch\include\word_grid.h
+1611608542 c:\users\peter\c++\wordsearch\include\word_grid.h
 	<fstream>
 	<iostream>
 	<string>
@@ -19,6 +19,7 @@
 	<random>
 	<ctime>
 	"word_list.h"
+	"word_data.h"
 
 1610822926 source:c:\users\peter\c++\wordsearch\src\word_list.cpp
 	"word_list.h"
@@ -28,4 +29,11 @@
 	<iostream>
 	<string>
 	<vector>
+
+1611605791 c:\users\peter\c++\wordsearch\include\word_data.h
+	<vector>
+	<string>
+
+1611608879 source:c:\users\peter\c++\wordsearch\src\word_data.cpp
+	"word_data.h"
 

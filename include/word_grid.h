@@ -9,13 +9,15 @@
 #include<ctime>
 
 #include "word_list.h"
+#include "word_data.h"
 
 
 class Word_Grid
 {
     private:
-        std::string file_name {};
         Word_List words {};
+        std::vector<word_data> clean_list {};
+        int word_count {0};
         std::vector <std::vector<int>> word_grid {};
         std::vector <std::vector<int>> available_slots {};
         int grid_size {0};
@@ -34,7 +36,7 @@ class Word_Grid
         Word_Grid();
         Word_Grid(int set_level);
         virtual ~Word_Grid();
-        bool read_and_clean_word_list(std::string filename);
+        int read_and_clean_word_list(std::string filename);
         bool create_grid();
         int get_grid_size();
         bool place_all_words();
