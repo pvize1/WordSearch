@@ -3,10 +3,13 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 
 
 class word_data
 {
+    friend std::ostream& operator<<(std::ostream &os, const word_data &rhs);
+
     public:
         word_data();
         word_data(std::string new_word);
@@ -14,8 +17,10 @@ class word_data
         void set_word(std::string new_word);
         std::string get_word();
         int get_letter_count();
-        void set_placement(int row, int col, int direction);
+        enum struct direction {ACROSS, DOWN, DIAG} word_direction;
+        void set_placement(int row, int col, direction direction);
         std::vector<int> get_placement();
+
 
     protected:
 
@@ -24,7 +29,7 @@ class word_data
         int letter_count {0};
         int placed_row {0};
         int placed_col {0};
-        int placed_direction {0};
+        direction placed_direction {};
 };
 
 #endif // WORD_DATA_H

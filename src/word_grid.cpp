@@ -38,6 +38,7 @@ int Word_Grid::read_and_clean_word_list(std::string file_name)
         file.close();
 
         bool found_word {false};
+        longest_word_length = 0;
 
         //Process the raw list of words, clean (remove whitespace) and upper
         for (std::string raw_word : raw_list)
@@ -64,12 +65,19 @@ int Word_Grid::read_and_clean_word_list(std::string file_name)
                 {
                     word_data new_word(curr_word);
                     clean_list.push_back(new_word);
+                    int length {new_word.get_letter_count()};
+                    longest_word_length = (length > longest_word_length) ? length : longest_word_length;
+                    //std::cerr << new_word << std::endl;
                 }
         }
         word_count = static_cast<int>(clean_list.size());
 
         if ( word_count == 0 )
+        {
+            std::cerr << std::endl << "No valid words in file" << std::endl;
             result = 2;
+        }
+
         else
             result = 0;
     }
@@ -79,21 +87,6 @@ int Word_Grid::read_and_clean_word_list(std::string file_name)
         result = 1;
     }
 
-
-
-//    switch ( words.create_clean_list(filename) )
-//    {
-//        case 0:
-//        {
-//            read_ok = true;
-//            break;
-//        }
-//        case 2:
-//        {
-//            std::cerr << std::endl << "No valid words in file" << std::endl;
-//            break;
-//        }
-//    }
     return result;
 }
 
@@ -103,16 +96,14 @@ bool Word_Grid::create_grid()
     // Set-up word grid based on longest word and pre-populate with zeros
     // ------------------------------------------------------------------
     std::uniform_int_distribution<int> filler(2, 7);
-    int longest_word {};
 
-    longest_word = words.get_longest_word_length();
-
-    if ( longest_word > 0 )
+    if ( longest_word_length > 0 )
     {
-        grid_size = longest_word + filler(_rnd);
+        grid_size = longest_word_length + filler(_rnd);
 
         word_grid = {};
         word_grid.resize(grid_size, std::vector<int>(grid_size, 0));
+        //std::cerr << std::endl << "Longest word = " <<  longest_word_length << std::endl;
         return true;
     }
     else
@@ -122,33 +113,25 @@ bool Word_Grid::create_grid()
     }
 }
 
-int Word_Grid::get_grid_size()
-{
-    return grid_size;
-}
-
 bool Word_Grid::place_all_words()
 {
-    std::vector<int> curr_word {};
-    std::vector<int> placement {};
+    word_data curr_word {};
+    int result {0};
 
-    //placement = place_word(words.get_longest_word(), false);
-    placement = place_word(words.get_word(0), false);
+    curr_word = clean_list[0];
+    result = place_word(curr_word, false);
 
-    for (int i = 1; i < words.get_word_count(); i++)
+    for (auto curr_word: clean_list)
     {
-        //if ( i != words.get_longest_word_index() )
-        //{
-            curr_word = words.get_word(i);
-            placement = place_word(curr_word, true);
-        //}
-        if ( placement[0] == -1 )
+        result = place_word(curr_word, true);
+
+        if ( result == -1 )
             return false;
     }
     return true;
 }
 
-std::vector<int> Word_Grid::place_word(std::vector<int> curr_word, bool use_slots)
+int Word_Grid::place_word(word_data curr_word, bool use_slots)
 {
     int col {0};
     int row {0};
@@ -157,12 +140,12 @@ std::vector<int> Word_Grid::place_word(std::vector<int> curr_word, bool use_slot
     {
         int slot_no {0};
 
-        available_slots = get_slots(curr_word);
+        //available_slots = get_slots(curr_word);
 
         if ( available_slots.empty() )
         {
-            print_placement(curr_word, -1, 0, 0);
-            return {-1, 0, 0};
+            //print_placement(curr_word, -1, 0, 0);
+            return -1;
         }
         else
         {
