@@ -18,9 +18,9 @@ class word_data
         std::string get_word();
         int get_letter_count();
         enum struct direction {ACROSS, DOWN, DIAG} word_direction;
+        const std::string direction_names [3] = { "Across", "Down", "Diagonal" };
         void set_placement(int row, int col, direction direction);
-        std::vector<int> get_placement();
-
+        void print_placement();
 
     protected:
 

@@ -25,12 +25,13 @@ int main()
 
             if ( grid.place_all_words() )
             {
-//                //std::vector<int> fill_letters {}; TODO using set of all letters in clean_list
-//                std::vector<int> fill_letters {65,66,67,68,69,70,71,72};
-//                grid.fill_blanks(fill_letters);
-//                grid.print_grid(true);
-//
-//                return 0;
+                //TODO using set of all letters in clean_list
+                std::vector<int> fill_letters {65,66,67,68,69,70,71,72};
+                grid.fill_blanks(fill_letters);
+                grid.print_grid(true);
+                grid.print_all_placements();
+
+                return 0;
             }
             else
                 std::cout << std::endl << "All words not placed, trying again... (" << num_tries << ")" << std::endl;

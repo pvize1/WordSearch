@@ -36,11 +36,9 @@
 		</Compiler>
 		<Unit filename="include/word_data.h" />
 		<Unit filename="include/word_grid.h" />
-		<Unit filename="include/word_list.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/word_data.cpp" />
 		<Unit filename="src/word_grid.cpp" />
-		<Unit filename="src/word_list.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

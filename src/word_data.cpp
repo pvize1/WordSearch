@@ -39,9 +39,11 @@ void word_data::set_placement(int row, int col, direction dirn)
     placed_direction = dirn;
 }
 
-std::vector<int> word_data::get_placement()
+void word_data::print_placement()
 {
-   return {placed_row, placed_col, static_cast<int>(placed_direction)};
+    std::cerr << clean_word << "\t\t";
+    std::cerr << "placed at: " << placed_row << ", " << placed_col;
+    std::cerr << ", " << direction_names[static_cast<int>(placed_direction)] << std::endl;
 }
 
 std::ostream& operator<<(std::ostream& os, const word_data &rhs)
