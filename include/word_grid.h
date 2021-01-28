@@ -7,6 +7,7 @@
 #include<vector>
 #include<random>
 #include<ctime>
+#include<memory>
 
 #include "word_data.h"
 
@@ -25,13 +26,13 @@ class Word_Grid
         void print_all_placements();
 
     private:
-        std::vector<word_data> clean_list {};
+        std::vector<std::shared_ptr<word_data>> clean_list;
         int word_count {0};
         std::vector <std::vector<int>> word_grid {};
         std::vector <std::vector<int>> available_slots {};
         int grid_size {0};
 
-        int place_word(word_data &curr_word, bool use_slots);
+        int place_word(std::shared_ptr<word_data> curr_word_data, bool use_slots);
         std::vector <std::vector<int>> get_slots(const std::string &curr_word);
 
         // initialise random device and seed
@@ -39,7 +40,7 @@ class Word_Grid
         std::mt19937 _rnd { rd() };
         //std::default_random_engine _rnd {};
 
-        //TODO enum struct level {EASY, MEDIUM, HARD} grid_level;
+        enum struct level {EASY, MEDIUM, HARD} grid_level;
         int level {};
 };
 

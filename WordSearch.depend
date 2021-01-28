@@ -11,13 +11,14 @@
 1611688513 source:c:\users\peter\c++\wordsearch\src\word_grid.cpp
 	"word_grid.h"
 
-1611689678 c:\users\peter\c++\wordsearch\include\word_grid.h
+1611866601 c:\users\peter\c++\wordsearch\include\word_grid.h
 	<fstream>
 	<iostream>
 	<string>
 	<vector>
 	<random>
 	<ctime>
+	<memory>
 	"word_data.h"
 
 1610822926 source:c:\users\peter\c++\wordsearch\src\word_list.cpp

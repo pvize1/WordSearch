@@ -52,7 +52,7 @@ int Word_Grid::read_and_clean_word_list(std::string file_name)
             // Check to see if word already in clean list
             for (auto word: clean_list)
             {
-                if ( word.get_word() == curr_word )
+                if ( word->get_word() == curr_word )
                 {
                     found_word = true;
                     std::cerr << curr_word << " - Duplicate word: " << std::endl;
@@ -62,8 +62,8 @@ int Word_Grid::read_and_clean_word_list(std::string file_name)
             if ( ! found_word )
                 if ( curr_word.size() > 1 )
                 {
-                    word_data new_word(curr_word);
-                    clean_list.push_back(new_word);
+                    auto tmp = std::make_shared<word_data>(word_data(curr_word));
+                    clean_list.push_back(tmp);
                 }
         }
         word_count = static_cast<int>(clean_list.size());
@@ -95,9 +95,9 @@ bool Word_Grid::create_grid()
     int length {0};
     int longest_word_length {0};
 
-    for (word_data word: clean_list)
+    for (auto word: clean_list)
     {
-        length = word.get_letter_count();
+        length = word->get_letter_count();
         longest_word_length = (length > longest_word_length) ? length : longest_word_length;
     }
 
@@ -122,7 +122,7 @@ bool Word_Grid::place_all_words()
     int result {0};
     bool use_slots {false};
 
-    for (auto &curr_word: clean_list)
+    for (auto curr_word: clean_list)
     {
         result = place_word(curr_word, use_slots);
         use_slots = true;
@@ -133,12 +133,12 @@ bool Word_Grid::place_all_words()
     return true;
 }
 
-int Word_Grid::place_word(word_data &curr_word_data, bool use_slots)
+int Word_Grid::place_word(std::shared_ptr<word_data> curr_word_data, bool use_slots)
 {
     int col {0};
     int row {0};
     word_data::direction word_direction {};
-    std::string curr_word = curr_word_data.get_word();
+    std::string curr_word = curr_word_data->get_word();
 
     if ( use_slots )
     {
@@ -167,7 +167,7 @@ int Word_Grid::place_word(word_data &curr_word_data, bool use_slots)
     }
     else
     {
-        int curr_word_size = curr_word_data.get_letter_count();
+        int curr_word_size = curr_word_data->get_letter_count();
 
         std::uniform_int_distribution<int> cd(0, grid_size-curr_word_size);
         std::uniform_int_distribution<int> rd(0, grid_size-curr_word_size);
@@ -209,7 +209,7 @@ int Word_Grid::place_word(word_data &curr_word_data, bool use_slots)
             break;
         }
     }
-    curr_word_data.set_placement(row, col, word_direction);
+    curr_word_data->set_placement(row, col, word_direction);
 
     return 0;
 }
@@ -315,6 +315,6 @@ void Word_Grid::print_all_placements()
 {
     std::cout << std::endl;
 
-    for (word_data curr_word_data: clean_list)
-        curr_word_data.print_placement();
+    for (auto curr_word_data: clean_list)
+        curr_word_data->print_placement();
 }
