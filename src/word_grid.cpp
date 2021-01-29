@@ -62,8 +62,8 @@ int Word_Grid::read_and_clean_word_list(std::string file_name)
             if ( ! found_word )
                 if ( curr_word.size() > 1 )
                 {
-                    auto tmp = std::make_shared<word_data>(word_data(curr_word));
-                    clean_list.push_back(tmp);
+                    auto tmp = std::make_shared<word_data>(curr_word);
+                    clean_list.push_back(std::move(tmp));
                 }
         }
         word_count = static_cast<int>(clean_list.size());
