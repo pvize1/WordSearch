@@ -178,38 +178,39 @@ int Word_Grid::place_word(std::shared_ptr<word_data> curr_word_data, bool use_sl
         word_direction = static_cast<word_data::direction>(dirn(_rnd));
     }
 
-    word_grid[row][col] = curr_word[0];
+    int col_offset {0};
+    int row_offset {0};
 
     switch (word_direction)
     {
         case word_data::direction::ACROSS:
         {
-            for(int i=1; i < static_cast<int>(curr_word.size()); i++)
-            {
-                word_grid[row][col+i] = curr_word[i];
-            }
+            col_offset = 1;
             break;
         }
 
         case word_data::direction::DOWN:
         {
-            for(int i=1; i < static_cast<int>(curr_word.size()); i++)
-            {
-                word_grid[row+i][col] = curr_word[i];
-            }
+            row_offset = 1;
             break;
         }
 
         case word_data::direction::DIAG:
         {
-            for(int i=1; i < static_cast<int>(curr_word.size()); i++)
-            {
-                word_grid[row+i][col+i] = curr_word[i];
-            }
+            col_offset = 1;
+            row_offset = 1;
             break;
         }
     }
+
     curr_word_data->set_placement(row, col, word_direction);
+
+    for(int i : curr_word)
+    {
+        word_grid[row][col] = i;
+        col += col_offset;
+        row += row_offset;
+    }
 
     return 0;
 }

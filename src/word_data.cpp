@@ -32,7 +32,7 @@ int word_data::get_letter_count()
     return letter_count;
 }
 
-void word_data::set_placement(int row, int col, direction dirn)
+void word_data::set_placement(const int row, const int col, const direction dirn)
 {
     placed_row = row;
     placed_col = col;
