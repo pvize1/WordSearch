@@ -30,10 +30,12 @@ class Word_Grid
         int word_count {0};
         std::vector <std::vector<int>> word_grid {};
         std::vector <std::vector<int>> available_slots {};
+
         int grid_size {0};
 
         int place_word(std::shared_ptr<word_data> curr_word_data, bool use_slots);
         std::vector <std::vector<int>> get_slots(const std::string &curr_word);
+        int check_slot(const std::string &curr_word, int row, int row_offset, int col, int col_offset);
 
         // initialise random device and seed
         std::random_device rd {};

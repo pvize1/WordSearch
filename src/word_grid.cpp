@@ -218,7 +218,6 @@ int Word_Grid::place_word(std::shared_ptr<word_data> curr_word_data, bool use_sl
 std::vector <std::vector<int>> Word_Grid::get_slots(const std::string &curr_word)
 {
     std::vector <std::vector<int>> slots {};
-    bool slot_ok {false};
     std::vector<int> curr_slot {};
     int word_size {0};
 
@@ -231,54 +230,43 @@ std::vector <std::vector<int>> Word_Grid::get_slots(const std::string &curr_word
             if ( j <= (grid_size - word_size))
             {
                 // process ACROSS
-                slot_ok = true;
-                for (int l = 0; l < word_size; l++)
-                {
-                    if ( word_grid[i][j+l] != 0 && word_grid[i][j+l] != curr_word[l] )
-                    {
-                        slot_ok = false;
-                        break;
-                    }
-                }
-                if ( slot_ok )
+                if ( check_slot(curr_word, i, 0, j, 1) > -1 )
                     slots.push_back({j,i,static_cast<int>(word_data::direction::ACROSS)});
             }
 
             if ( i <= (grid_size - word_size))
             {
                 // process DOWN
-                slot_ok = true;
-                for (int l = 0; l < word_size; l++)
-                {
-                    if ( word_grid[i+l][j] != 0 && word_grid[i+l][j] != curr_word[l])
-                    {
-                        slot_ok = false;
-                        break;
-                    }
-                }
-                if ( slot_ok )
+                if ( check_slot(curr_word, i, 1, j, 0) > -1 )
                     slots.push_back({j,i,static_cast<int>(word_data::direction::DOWN)});
             }
 
             if ( i <= (grid_size - word_size) && j <= (grid_size - word_size))
             {
                 // process DIAG (TODO if level = 3)
-                slot_ok = true;
-                for (int l = 0; l < word_size; l++)
-                {
-                    if ( word_grid[i+l][j+l] != 0 && word_grid[i+l][j+l] != curr_word[l])
-                    {
-                        slot_ok = false;
-                        break;
-                    }
-                }
-                if ( slot_ok )
+                if ( check_slot(curr_word, i, 1, j, 1) > -1 )
                     slots.push_back({j,i,static_cast<int>(word_data::direction::DIAG)});
             }
         }
     }
 
     return slots;
+}
+
+int Word_Grid::check_slot(const std::string &curr_word, int row, int row_offset, int col, int col_offset)
+{
+    int overlap_count {0};
+
+    for (int i : curr_word)
+    {
+        if ( word_grid[row][col] != 0 && word_grid[row][col] != i)
+            return -1;
+        else if ( word_grid[row][col] == i)
+            overlap_count += 1;
+        col += col_offset;
+        row += row_offset;
+    }
+    return overlap_count;
 }
 
 void Word_Grid::fill_blanks(std::vector<int> &fill_chars)
