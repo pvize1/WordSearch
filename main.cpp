@@ -5,7 +5,7 @@
 int main()
 {
     const std::string FILE_NAME = "C:\\Users\\peter\\c++\\WordSearch\\words_days_months.txt";
-    Word_Grid grid {};
+    Word_Grid grid(1);
     int result {0};
     int num_tries {0};
 

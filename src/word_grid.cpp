@@ -241,11 +241,14 @@ std::vector <std::vector<int>> Word_Grid::get_slots(const std::string &curr_word
                     slots.push_back({j,i,static_cast<int>(word_data::direction::DOWN)});
             }
 
-            if ( i <= (grid_size - word_size) && j <= (grid_size - word_size))
+            if ( level > 0 )
             {
-                // process DIAG (TODO if level = 3)
-                if ( check_slot(curr_word, i, 1, j, 1) > -1 )
-                    slots.push_back({j,i,static_cast<int>(word_data::direction::DIAG)});
+                if ( i <= (grid_size - word_size) && j <= (grid_size - word_size))
+                {
+                    // process DIAG
+                    if ( check_slot(curr_word, i, 1, j, 1) > -1 )
+                        slots.push_back({j,i,static_cast<int>(word_data::direction::DIAG)});
+                }
             }
         }
     }
